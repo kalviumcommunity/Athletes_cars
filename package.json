@@ -6,6 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "git add package.json git commit -m \" Initialize package.json",
+  "om bankar ": "git add package.json git commit -m \" Initialize package.json",
   "license": "ISC"
 }
