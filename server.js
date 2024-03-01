@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const routes = require('./routes')
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const connection = process.env.URI;
@@ -26,8 +27,10 @@ app.get('/', (req, res) => {
 });
 
 app.get("/ping", (req, res) => {
-    res.send('om');           
+    res.send('Hello');
 });
+
+app.use('/',routes)
 
 app.listen(3000, () => {
     startDatabase();
