@@ -1,5 +1,6 @@
 import './index.css';
 import { useState, useEffect } from 'react';
+import {Link} from "react-router-dom"
 import carImage from './assets/car.png';
 import image1 from './assets/image1.jpg';
 import image2 from './assets/image2.jpg';
@@ -23,6 +24,8 @@ function Home() {
 
   return (
     <>
+    <div className="home">
+
       <div className="container">
         <nav>
           <a href='#'>HOME</a>
@@ -35,13 +38,16 @@ function Home() {
         <div className="content">
           <h1>ATHLETES SPORTS CAR </h1>
           <p>Here is the list of best athletes who own the best sports cars. You will get every information regarding your favorite and the worlds top athletes in terms of their best sports car.</p>
+          <Link to="/info"> 
           <button type="button">Proceed</button>
+          </Link>
         </div>
         <div className="car-one">
           <img src={carImage} alt="" height="300px" />
         </div>
       </div>
       <div className='imgslider' style={{ backgroundImage: `url(${images[currentImageIndex]})` }}></div>
+    </div>
     </>
   );
 }
