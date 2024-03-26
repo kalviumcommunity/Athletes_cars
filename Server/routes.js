@@ -6,7 +6,7 @@ router.use(express.json());
 
 router.get('/get', async (req, res) => {
     try {
-        const sports = await Car.find();
+        const sports = await Car.find({});
         res.json(sports);
     } catch (err) {
         console.error('error', err);
