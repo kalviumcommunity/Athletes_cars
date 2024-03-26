@@ -9,15 +9,15 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
-    top_sports_car: {
+    topsportscar: {
         type: String,
         required: true  
     },
-    maximum_speed: {
+    maximumspeed: {
         type: Number,
         required: true  
     },
-    price_of_car: {
+    priceofcar: {
         type: Number,
         required: true  
     },
@@ -25,7 +25,7 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
-    image_link: {
+    imagelink: {
         type: String,
         required: true  
     }
