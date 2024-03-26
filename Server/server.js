@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const routes = require('./routes')
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const mongoose = require('mongoose');
 const connection = process.env.URI;
 const cors = require('cors')
@@ -9,8 +9,6 @@ const cors = require('cors')
 let connectionStatus = 'disconnected';
 
 app.use(cors());
-
-dotenv.config();
 
 const startDatabase = async () => {
     try {
