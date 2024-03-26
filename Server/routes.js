@@ -7,7 +7,7 @@ router.use(express.json());
 router.get('/get', async (req, res) => {
     try {
         const sports = await Car.find({});
-        res.json(sports);
+        res.status(200).json(sports);
     } catch (err) {
         console.error('error', err);
         res.status(500).json({ error: 'Internal server error' });
