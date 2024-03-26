@@ -31,6 +31,6 @@ const carSchema = new mongoose.Schema({
     }
 });
 
-const car = mongoose.model('sportscar-collections', carSchema);
+const Car = mongoose.model('sportscar-collections', carSchema);
 
-module.exports = car;
+module.exports = Car;
