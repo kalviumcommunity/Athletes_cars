@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const car = require('./schema');
+const { car } = require('./schema');
 
 router.use(express.json());
 
