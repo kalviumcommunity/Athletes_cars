@@ -1,7 +1,24 @@
-import React from 'react';
-import './info.css'; 
+import React, { useState, useEffect } from 'react';
+import './info.css';
+import axios from 'axios';
 
 function Info(){
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("https://athletes-cars-1.onrender.com/get");
+                setData(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchData();
+    }, []); 
+    
     return (
         <div>
             <nav className="navbar">
@@ -11,19 +28,20 @@ function Info(){
                 </div>
             </nav>
             <div className="info-container">
-                <div className="image-info-container">
-                    <div className="image-section">
-                        <img src="https://www.exclusiveautomotivegroup.com/imagetag/3869/3/l/New-2023-Bentley-Continental-GT-Speed-1701901696.jpg" alt="Bugatti" style={{ width: '100%', height: 'auto' }} />
+                {data.map((item, index) => (
+                    <div className="image-info-container" key={index}>
+                        <div className="image-section">
+                            <img src={item.image} alt={item.name} style={{ width: '100%', height: 'auto' }} />
+                        </div>
+                        <div className="info-section">
+                            <p>Name: {item.name}</p>
+                            <p>Sport: {item.sport}</p>
+                            <p>Max speed: {item.maxSpeed} mph</p>
+                            <p>Price of car: {item.price} crore</p>
+                            <p>Company Name: {item.company}</p>
+                        </div>
                     </div>
-                    <div className="info-section">
-                        <p>Name: Virat Kohli</p>
-                        <p>Sport : Cricket</p>
-                        <p>Max speed: 208 mph</p>
-                        <p>Price of car:6.95 crore </p>
-                        <p>Company Name - Bentley Motors</p>
-                    </div>
-                </div>
-               
+                ))}
             </div>
         </div>
     );
