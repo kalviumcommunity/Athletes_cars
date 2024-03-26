@@ -1,4 +1,4 @@
-.navbar {
+ .navbar {
     background-color: red;
     height: 30vh;
     width: 100vw;
@@ -20,6 +20,32 @@
     height: 20%;
 }
 
+
+.info-container {
+    background-color: rgb(198, 96, 111);
+    height: 160vh; 
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap ;
+    padding: 20px;
+    column-gap: 2vw;
+    row-gap: 2vw;
+    
+}
+
+.image-info-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    column-gap: 2vw;
+    row-gap: 2vw;
+    background-color: red;
+}
+
+/*
+
 .info-container {
     background-color: rgb(198, 96, 111);
     height: 70vh; 
@@ -27,7 +53,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap ;
     padding: 20px;
+    overflow-x: scroll;
 }
 
 .image-info-container {
@@ -46,8 +74,11 @@
 }
 
 .info-section {
-    width: 100%;
+    width: 50%;
     color: white;
     font-size: 1.2rem;
     text-align: center; 
-}
+} */
+
+
+
