@@ -9,16 +9,16 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
-    topsportscar: {
+    top_sportscar: {
         type: String,
         required: true  
     },
     maximumspeed: {
-        type: Number,
+        type: String,
         required: true  
     },
     priceofcar: {
-        type: Number,
+        type: String,
         required: true  
     },
     company: {
