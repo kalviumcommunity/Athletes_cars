@@ -9,7 +9,7 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
-    top_sportscar: {
+    topsportscar: {
         type: String,
         required: true  
     },
