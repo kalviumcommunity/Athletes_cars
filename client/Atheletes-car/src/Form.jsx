@@ -7,11 +7,11 @@ function Form() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        PersonalityName: "", 
-        Sport: "", 
-        MaxSpeed: "", 
-        PriceOfCar: "", 
-        CompanyName: "", 
+        name: "", 
+        sport: "", 
+        maximumspeed: "", 
+        priceofcar: "", 
+        company: "", 
     });
 
     const handleSubmit = async (event) => {
@@ -36,52 +36,52 @@ function Form() {
         <div className="form-container">
             <form className="form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="personalityName">Personality Name:</label>
+                    <label htmlFor="PersonalityName">name:</label>
                     <input
                         type="text"
-                        id="personalityName"
-                        name="personalityName"
-                        value={formData.personalityName} 
+                        id="PersonalityName"
+                        name="PersonalityName"
+                        value={formData.PersonalityName} 
                         onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="sport">Sport:</label>
+                    <label htmlFor="Sport">sport:</label>
                     <input
                         type="text"
-                        id="sport"
-                        name="sport"
-                        value={formData.sport} 
+                        id="Sport"
+                        name="Sport"
+                        value={formData.Sport} 
                         onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="maxSpeed">Max Speed:</label>
+                    <label htmlFor="MaxSpeed"> maximumspeed:</label>
                     <input
                         type="text"
-                        id="maxSpeed"
-                        name="maxSpeed"
-                        value={formData.maxSpeed} 
+                        id="MaxSpeed"
+                        name="MaxSpeed"
+                        value={formData.MaxSpeed} 
                         onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="priceOfCar">Price of Car:</label>
+                    <label htmlFor="PriceOfCar"> priceofcar:</label>
                     <input
                         type="text"
-                        id="priceOfCar"
-                        name="priceOfCar"
-                        value={formData.priceOfCar} 
+                        id="PriceOfCar"
+                        name="PriceOfCar"
+                        value={formData.PriceOfCar} 
                         onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="companyName">Company Name:</label>
+                    <label htmlFor="CompanyName"> company:</label>
                     <input
                         type="text"
-                        id="companyName"
-                        name="companyName"
-                        value={formData.companyName} 
+                        id="CompanyName"
+                        name="CompanyName"
+                        value={formData.CompanyName} 
                         onChange={handleChange}
                     />
                 </div>
@@ -94,3 +94,4 @@ function Form() {
 }
 
 export default Form;
+
