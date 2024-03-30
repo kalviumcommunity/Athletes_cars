@@ -1,24 +1,24 @@
 import axios from 'axios';
-import { useState } from 'react'; // Import useState hook
-import { useNavigate } from 'react-router-dom'; // Assuming you are using react-router-dom for navigation
+import { useState } from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
 import './Form.css';
 
 function Form() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        personalityName: "", // Corrected key name
-        sport: "", // Corrected key name
-        maxSpeed: "", // Corrected key name
-        priceOfCar: "", // Corrected key name
-        companyName: "", // Corrected key name
+        PersonalityName: "", 
+        Sport: "", 
+        MaxSpeed: "", 
+        PriceOfCar: "", 
+        CompanyName: "", 
     });
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault(); 
         try {
-            await axios.post("https://server-folder-ftte.onrender.com/new", formData);
-            navigate("/"); // Navigate to the desired route after successful submission
+            await axios.post("https://athletes-cars-1.onrender.com/post", formData);
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
@@ -41,8 +41,8 @@ function Form() {
                         type="text"
                         id="personalityName"
                         name="personalityName"
-                        value={formData.personalityName} // Bind value to state
-                        onChange={handleChange} // Handle change event
+                        value={formData.personalityName} 
+                        onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
@@ -51,8 +51,8 @@ function Form() {
                         type="text"
                         id="sport"
                         name="sport"
-                        value={formData.sport} // Bind value to state
-                        onChange={handleChange} // Handle change event
+                        value={formData.sport} 
+                        onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
@@ -61,8 +61,8 @@ function Form() {
                         type="text"
                         id="maxSpeed"
                         name="maxSpeed"
-                        value={formData.maxSpeed} // Bind value to state
-                        onChange={handleChange} // Handle change event
+                        value={formData.maxSpeed} 
+                        onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
@@ -71,8 +71,8 @@ function Form() {
                         type="text"
                         id="priceOfCar"
                         name="priceOfCar"
-                        value={formData.priceOfCar} // Bind value to state
-                        onChange={handleChange} // Handle change event
+                        value={formData.priceOfCar} 
+                        onChange={handleChange} 
                     />
                 </div>
                 <div className="form-group">
@@ -81,8 +81,8 @@ function Form() {
                         type="text"
                         id="companyName"
                         name="companyName"
-                        value={formData.companyName} // Bind value to state
-                        onChange={handleChange} // Handle change event
+                        value={formData.companyName} 
+                        onChange={handleChange}
                     />
                 </div>
                 <div>
