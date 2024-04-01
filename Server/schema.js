@@ -9,10 +9,6 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
-    topsportscar: {
-        type: String,
-        required: true  
-    },
     maximumspeed: {
         type: String,
         required: true  

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Car = require('./schema');
 
-// Use the JSON middleware before defining routes
 router.use(express.json());
 
 router.get('/get', async (req, res) => {
@@ -33,7 +32,4 @@ router.delete('/delete', (req, res) => {
     res.status(204).send();
 });
 
-module.exports = {
-    router: router,
-    Car: Car
-};
+module.exports = router;
