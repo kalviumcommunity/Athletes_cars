@@ -3,8 +3,6 @@ import Home from './Home';
 import Info from './Info'; 
 import Form from './Form'; 
 
-
-
 function App() {
     return (
         <BrowserRouter>
@@ -12,7 +10,6 @@ function App() {
                 <Route exact path="/" element={<Home/>} />
                 <Route path="/info" element={<Info/>} /> 
                 <Route path="/form" element={<Form/>} />
-       
             </Routes>
         </BrowserRouter>
     );

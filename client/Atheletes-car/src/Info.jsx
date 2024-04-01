@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './info.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; 
@@ -9,7 +9,7 @@ function Info() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("https://cars-suc3.onrender.com/get");
+                const res = await axios.get("https://athletes-cars-1.onrender.com/get");
                 setData(res.data);
             } catch (err) {
                 console.log(err);
@@ -21,7 +21,6 @@ function Info() {
 
     return (
         <div>
-            {console.log(data)}
             <nav className="navbar">
                 <div className="logo">Top Athletes Sports Car</div>
                 <div className="search">
