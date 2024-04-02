@@ -24,12 +24,24 @@ router.post('/post', async (req, res) => {
     }
 });
 
-router.put('/put', (req, res) => {
-    res.status(204).send();
+router.put('/update/:id', async (req, res) => {
+    try {
+        const updatedCar = await Car.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.status(200).json(updatedCar);
+    } catch (err) {
+        console.error('Error updating car:', err); 
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.delete('/delete', (req, res) => {
-    res.status(204).send();
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        await Car.findByIdAndDelete(req.params.id);
+        res.status(204).send();
+    } catch (err) {
+        console.error('Error deleting car:', err); 
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = router;
