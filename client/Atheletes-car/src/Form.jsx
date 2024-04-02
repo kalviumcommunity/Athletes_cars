@@ -12,31 +12,31 @@ function Form() {
         maximumspeed: "", 
         priceofcar: "", 
         company: "", 
-        imagelink: ""  // Added imagelink field
+        imagelink: ""  
     });
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         try {
-            // Send a POST request to the backend API with the form data
+           
             const response = await axios.post("https://athletes-cars-1.onrender.com/post", formData);
-            // Check the response status
+           
             if (response.status === 200) {
-                // Redirect to the homepage after successful form submission
+               
                 navigate("/");
             } else {
-                // Handle unexpected response status
+                
                 console.error("Unexpected response status:", response.status);
             }
         } catch (error) {
-            // Handle and log any errors that occur during form submission
+           
             console.error("Error:", error.message);
         }
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        // Update the formData state with the new form field value
+      
         setFormData(prevState => ({
             ...prevState,
             [name]: value,
