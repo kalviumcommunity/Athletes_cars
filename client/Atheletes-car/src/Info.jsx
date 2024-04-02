@@ -10,6 +10,7 @@ function Info(){
         const fetchData = async () => {
             try {
                 const res = await axios.get("https://cars-suc3.onrender.com/get");
+                // retrieved data from render
                 setData(res.data);
             } catch (err) {
                 console.log(err);
