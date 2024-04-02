@@ -9,7 +9,7 @@ function Info() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("https://athletes-cars-1.onrender.com/get");
+                const res = await axios.get("https://athletes-cars-22.onrender.com/get");
                 setData(res.data);
             } catch (err) {
                 console.log(err);
