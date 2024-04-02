@@ -12,18 +12,25 @@ function Form() {
         maximumspeed: "", 
         priceofcar: "", 
         company: "", 
+        imagelink: ""  // Added imagelink field
     });
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         try {
             // Send a POST request to the backend API with the form data
-            await axios.post("https://athletes-cars-1.onrender.com/post", formData);
-            // Redirect to the homepage after successful form submission
-            navigate("/");
+            const response = await axios.post("https://athletes-cars-1.onrender.com/post", formData);
+            // Check the response status
+            if (response.status === 200) {
+                // Redirect to the homepage after successful form submission
+                navigate("/");
+            } else {
+                // Handle unexpected response status
+                console.error("Unexpected response status:", response.status);
+            }
         } catch (error) {
             // Handle and log any errors that occur during form submission
-            console.error(error);
+            console.error("Error:", error.message);
         }
     };
 
@@ -89,6 +96,17 @@ function Form() {
                         onChange={handleChange}
                     />
                 </div>
+                { <div className="form-group">
+                    <label htmlFor="imagelink">Image Link:</label>
+                    <input
+                        type="text"
+                        id="imagelink"
+                        name="imagelink"
+                        value={formData.imagelink} 
+                        onChange={handleChange}
+                    />
+                </div> }
+
                 <div>
                     <button className='submit' type="submit">Add Entity</button>
                 </div>
@@ -98,5 +116,3 @@ function Form() {
 }
 
 export default Form;
-
-
