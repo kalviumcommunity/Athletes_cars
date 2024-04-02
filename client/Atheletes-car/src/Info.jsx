@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import './info.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; 
 
-function Info(){
-
+function Info() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("https://cars-suc3.onrender.com/get");
-                // retrieved data from render
+
                 setData(res.data);
             } catch (err) {
                 console.log(err);
@@ -18,16 +17,16 @@ function Info(){
         };
 
         fetchData();
-    }, []); 
-    
+    }, []);
+
     return (
         <div>
-            {console.log(data)}
             <nav className="navbar">
-                <div className="logo"> Top  Athletes  Sports Car</div>
+                <div className="logo">Top Athletes Sports Car</div>
                 <div className="search">
                     <input type="text" placeholder="Search..." />
                 </div>
+                <Link to="/form">Add Entity</Link> 
             </nav>
             <div className="info-container">
                 {data.map((item, index) => (

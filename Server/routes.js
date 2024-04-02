@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Car = require('./schema');
 
-
-
-
 router.use(express.json());
 
 router.get('/get', async (req, res) => {
@@ -20,9 +17,9 @@ router.get('/get', async (req, res) => {
 router.post('/post', async (req, res) => {
     try {
         const newCar = await Car.create(req.body);
-        res.status(201).json(newCar);
+        res.status(200).json(newCar);
     } catch (err) {
-        console.error('error', err);
+        console.error('Error creating new car:', err); 
         res.status(500).json({ error: 'Internal server error' });
     }
 });
