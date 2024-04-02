@@ -23,7 +23,7 @@ const carSchema = new mongoose.Schema({
     },
     imagelink: {
         type: String,
-        required: true  
+        // required: true  
     }
 });
 
