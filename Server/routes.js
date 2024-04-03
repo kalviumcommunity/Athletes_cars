@@ -36,12 +36,12 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     try {
-        await Car.findByIdAndDelete(req.params.id);
-        res.status(204).send();
+      await Car.findByIdAndDelete(req.params.id);
+      res.status(204).send();
     } catch (err) {
-        console.error('Error deleting car:', err); 
-        res.status(500).json({ error: 'Internal server error' });
+      console.error('Error deleting car:', err);
+      res.status(500).json({ error: 'Internal server error' });
     }
-});
+  });
 
 module.exports = router;
