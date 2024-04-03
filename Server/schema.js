@@ -11,11 +11,11 @@ const carSchema = new mongoose.Schema({
         required: true  
     },
     maximumspeed: {
-        type: Number,
+        type: String,
         required: true  
     },
     priceofcar: {
-        type: Number,
+        type: String,
         required: true  
     },
     company: {
@@ -33,8 +33,8 @@ const Car = mongoose.model('sportscar-collection', carSchema);
 const carJoiSchema = Joi.object({ 
     name: Joi.string().required(),
     sport: Joi.string().required(),
-    maximumspeed: Joi.number().required(),
-    priceofcar: Joi.number().required(),
+    maximumspeed: Joi.string().required(),
+    priceofcar: Joi.string().required(),
     company: Joi.string().required(),
     imagelink: Joi.string().required()
 });
