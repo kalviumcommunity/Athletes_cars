@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const carSchema = new mongoose.Schema({
     name: {
@@ -10,11 +11,11 @@ const carSchema = new mongoose.Schema({
         required: true  
     },
     maximumspeed: {
-        type: String,
+        type: Number,
         required: true  
     },
     priceofcar: {
-        type: String,
+        type: Number,
         required: true  
     },
     company: {
@@ -29,4 +30,13 @@ const carSchema = new mongoose.Schema({
 
 const Car = mongoose.model('sportscar-collection', carSchema);
 
-module.exports = Car;
+const carJoiSchema = Joi.object({ 
+    name: Joi.string().required(),
+    sport: Joi.string().required(),
+    maximumspeed: Joi.number().required(),
+    priceofcar: Joi.number().required(),
+    company: Joi.string().required(),
+    imagelink: Joi.string().required()
+});
+
+module.exports = {Car, carJoiSchema};

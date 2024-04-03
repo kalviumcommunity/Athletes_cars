@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,7 +30,7 @@ const Info = () => {
   };
 
   const handleUpdate = (id) => {
-    navigate(`/update/${id}`);  // Ensure correct navigation to the update page with the item id
+    navigate(`/update/${id}`);  
   };
 
   return (
