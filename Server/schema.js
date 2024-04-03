@@ -1,70 +1,42 @@
-const express = require('express');
-const router = express.Router();
-const { Car, carJoiSchema } = require('./schema');
+const mongoose = require('mongoose');
+const Joi = require('joi');
 
-router.use(express.json());
-
-router.get('/get', async (req, res) => {
-    try {
-        const cars = await Car.find({});
-        res.status(200).json(cars);
-    } catch (err) {
-        console.error('error', err);
-        res.status(500).json({ error: 'Internal server error' });
+const carSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true  
+    },
+    sport: {
+        type: String,
+        required: true  
+    },
+    maximumspeed: {
+        type: Number,
+        required: true  
+    },
+    priceofcar: {
+        type: Number,
+        required: true  
+    },
+    company: {
+        type: String,
+        required: true  
+    },
+    imagelink: {
+        type: String,
+    
     }
 });
 
-router.get('/get/:id', async (req, res) => {
-    try {
-        const car = await Car.findById(req.params.id);
-        if (!car) {
-            return res.status(404).json({ error: 'Car not found' });
-        }
-        res.status(200).json(car);
-    } catch (err) {
-        console.error('error', err);
-        res.status(500).json({ error: 'Internal server error' });
-    }
+const Car = mongoose.model('sportscar-collection', carSchema);
+
+const carJoiSchema = Joi.object({ 
+    name: Joi.string().required(),
+    sport: Joi.string().required(),
+    maximumspeed: Joi.number().required(),
+    priceofcar: Joi.number().required(),
+    company: Joi.string().required(),
+    imagelink: Joi.string().required()
 });
 
-router.post('/post', async (req, res) => {
-    try {
-        const { error } = carJoiSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ error: error.details[0].message });
-        }
-        
-        const newCar = await Car.create(req.body);
-        res.status(200).json(newCar);
-    } catch (err) {
-        console.error('Error creating new car:', err); 
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-router.put('/update/:id', async (req, res) => {
-    try {
-        const { error } = carJoiSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ error: error.details[0].message });
-        }
-        
-        const updatedCar = await Car.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(updatedCar);
-    } catch (err) {
-        console.error('Error updating car:', err); 
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-router.delete('/delete/:id', async (req, res) => {
-    try {
-      await Car.findByIdAndDelete(req.params.id);
-      res.status(204).send();
-    } catch (err) {
-      console.error('Error deleting car:', err);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-module.exports = router;
+module.exports = {Car, carJoiSchema};
