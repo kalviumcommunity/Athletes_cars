@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
@@ -51,10 +51,10 @@ const Info = () => {
             <div className="info-section">
               <p>Name: {item.name}</p>
               <p>Sport: {item.sport}</p>
-              <p>Max speed: {item.maximumspeed} mph</p>
-              <p>Price of car: {item.priceofcar} crore</p>
+              <p>Max speed: {item.maximumspeed} </p>
+              <p>Price of car: {item.priceofcar} </p>
               <p>Company Name: {item.company}</p>
-              <Link to="/update/:id" onClick={() => handleUpdate(item._id)}>Update</Link>
+              <Link to={`/update/${item._id}`} onClick={() => handleUpdate(item._id)}>Update</Link>
               <button onClick={() => handleDelete(item._id)}>Delete</button>
             </div>
           </div>
