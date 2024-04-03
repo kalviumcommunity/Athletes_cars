@@ -6,8 +6,21 @@ router.use(express.json());
 
 router.get('/get', async (req, res) => {
     try {
-        const sports = await Car.find({});
-        res.status(200).json(sports);
+        const cars = await Car.find({});
+        res.status(200).json(cars);
+    } catch (err) {
+        console.error('error', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/get/:id', async (req, res) => {
+    try {
+        const car = await Car.findById(req.params.id);
+        if (!car) {
+            return res.status(404).json({ error: 'Car not found' });
+        }
+        res.status(200).json(car);
     } catch (err) {
         console.error('error', err);
         res.status(500).json({ error: 'Internal server error' });
