@@ -28,6 +28,8 @@ const carSchema = new mongoose.Schema({
     }
 });
 
+
+
 const Car = mongoose.model('sportscar-collection', carSchema);
 
 const carJoiSchema = Joi.object({ 
@@ -38,5 +40,10 @@ const carJoiSchema = Joi.object({
     company: Joi.string().required(),
     imagelink: Joi.string().required()
 });
+
+
+
+
+
 
 module.exports = {Car, carJoiSchema};
