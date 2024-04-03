@@ -30,7 +30,7 @@ const Info = () => {
   };
 
   const handleUpdate = (id) => {
-    navigate(`/update/${id}`);  // Ensure correct navigation to the update page with the item id
+    navigate(`/update/${id}`);  
   };
 
   return (

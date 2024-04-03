@@ -7,7 +7,7 @@ function UpdateForm() {
 
   const navigate = useNavigate();
 
-  const { id } = useParams(); // Get the id from the URL params
+  const { id } = useParams(); 
   const [formData, setFormData] = useState({
     name: '',
     sport: '',
@@ -21,7 +21,7 @@ function UpdateForm() {
     const fetchData = async () => {
       try {
         const res = await axios.get(`https://athletes-cars-22.onrender.com/get/${id}`);
-        const carData = res.data; // Assuming res.data is the car object
+        const carData = res.data; 
         setFormData({
           name: carData.name,
           sport: carData.sport,
@@ -36,7 +36,7 @@ function UpdateForm() {
     };
 
     fetchData();
-  }, [id]); // Fetch data when id changes
+  }, [id]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
