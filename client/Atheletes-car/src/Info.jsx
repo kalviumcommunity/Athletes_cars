@@ -5,6 +5,7 @@ import './info.css';
 
 const Info = () => {
   const [data, setData] = useState([]);
+  const [showSignup, setShowSignup] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Info = () => {
   return (
     <div>
       <nav className="navbar">
+        <div className="auth-buttons">
+          <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link> {/* Show signup form on click */}
+          <Link to="/login">Log In</Link>
+        </div>
         <div className="logo">Top Athletes Sports Car</div>
         <div className="search">
           <input type="text" placeholder="Search..." />
@@ -60,6 +65,7 @@ const Info = () => {
           </div>
         ))}
       </div>
+      {showSignup && <Signup />} 
     </div>
   );
 };
