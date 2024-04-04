@@ -8,30 +8,32 @@ const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); 
-    const [, setSignupError] = useState(' ');
-    
+    // const [, setSignupError] = useState(' ');
+
     const navigate = useNavigate();
     
   const handleSubmit = async(event) => {
-    event.preventDefault(); 
-    
+    event.preventDefault()
+    console.log("")
     try {
         if (password.length < 6) {
-          setSignupError("Password should be more than 5 characters");
+        //   setSignupError("Password should be more than 5 characters");
           return;
         }
   
-        const response = await axios.post(`https://server-folder-ftte.onrender.com/Signup`, { username, password });
+        const response = await axios.post(`https://athletes-cars-22.onrender.com/Signup`, { username, password });
         if (response.status === 200) {
+            console.log("")
           sessionStorage.setItem('login', true);
           sessionStorage.setItem('signupSuccess', 'Signup successful'); 
           navigate("/");
         } else {
-          setSignupError('Signup failed');
+        //   setSignupError('Signup failed');
+        console.log("")
         }
       } catch (err) {
-        console.error(err);
-        setSignupError('An error occurred during the signup');
+        console.log(err);
+        // setSignupError('An error occurred during the signup');
       }
     window.location.href = '/info'; 
   };
@@ -45,7 +47,7 @@ const Signup = () => {
     <div className="signup-page">
       <div className="signup-form-container">
         <h1>Signup Page</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={() => handleSubmit(event)}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input
