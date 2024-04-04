@@ -1,18 +1,42 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link , useNavigate} from 'react-router-dom';
+import axios from 'axios'; 
 import './Signup.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [, setLoginMessage] = useState(' ');
+
+  const navigate = useNavigate();
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
+    try {
+        if (password.length < 6) {
+          setLoginMessage("Password should be more than 5 characters");
+          return;
+        }
+  
+        const response = await axios.post(`https://server-folder-ftte.onrender.com/Login`, { username, password });
+        if (response.status === 200) {
+          navigate("/info");
+        } else {
+          setLoginMessage('Invalid Credentials');
+        }
+      } catch (err) {
+        console.error(err);
+        setLoginMessage('Invalid Credentials');
+      }
+    
+
 
 
    
