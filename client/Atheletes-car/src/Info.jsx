@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
@@ -34,12 +34,23 @@ const Info = () => {
     navigate(`/update/${id}`);  
   };
 
+  const handleLogout = async () => {
+    try {
+      await axios.post("https://athletes-cars-22.onrender.com/logout");
+      
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <nav className="navbar">
         <div className="auth-buttons">
-          <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link> {/* Show signup form on click */}
+          <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link> 
           <Link to="/login">Log In</Link>
+          <button onClick={handleLogout}>Logout</button> 
         </div>
         <div className="logo">Top Athletes Sports Car</div>
         <div className="search">
