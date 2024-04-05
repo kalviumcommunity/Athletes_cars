@@ -23,7 +23,7 @@ const Login = () => {
             setLoginMessage("Password should be more than 5 characters");
             return;
         }
-        axios.post(`http://localhost:3000/Login`, { username, password })
+        axios.post(`https://athletes-cars-22.onrender.com/Login`, { username, password })
             .then(res => {
                 if(res.status === 201){
                     console.log("ALERT")
