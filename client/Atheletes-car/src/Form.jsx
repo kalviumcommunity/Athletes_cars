@@ -9,7 +9,7 @@ function Form() {
     const [formData, setFormData] = useState({
         name: "", 
         sport: "", 
-        maximumspeed: "", 
+        maximumspeed: "",
         priceofcar: "", 
         company: "", 
         imagelink: ""  
@@ -18,18 +18,23 @@ function Form() {
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         try {
-           
-            const response = await axios.post("https://athletes-cars-1.onrender.com/post", formData);
+         
+            const username = sessionStorage.getItem('username');
+            
+        
+            const formDataWithUsername = {
+                ...formData,
+                created_by: username
+            };
+
+            const response = await axios.post("http://localhost:3000/post", formDataWithUsername);
            
             if (response.status === 200) {
-               
                 navigate("/");
             } else {
-                
                 console.error("Unexpected response status:", response.status);
             }
         } catch (error) {
-           
             console.error("Error:", error.message);
         }
     };
@@ -96,7 +101,7 @@ function Form() {
                         onChange={handleChange}
                     />
                 </div>
-                { <div className="form-group">
+                <div className="form-group">
                     <label htmlFor="imagelink">Image Link:</label>
                     <input
                         type="text"
@@ -105,7 +110,7 @@ function Form() {
                         value={formData.imagelink} 
                         onChange={handleChange}
                     />
-                </div> }
+                </div>
 
                 <div>
                     <button className='submit' type="submit">Add Entity</button>

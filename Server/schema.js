@@ -25,6 +25,10 @@ const carSchema = new mongoose.Schema({
     imagelink: {
         type: String,
     
+    },
+
+    created_by:{
+        type : String
     }
 });
 
@@ -39,7 +43,8 @@ const carJoiSchema = Joi.object({
     maximumspeed: Joi.string().required(),
     priceofcar: Joi.string().required(),
     company: Joi.string().required(),
-    imagelink: Joi.string().required()
+    imagelink: Joi.string().required(),
+    created_by : Joi.string()
 });
 
 

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
+import Signup from './Signup'; // Import the Signup component if needed
 
 const Info = () => {
   const [data, setData] = useState([]);
   const [showSignup, setShowSignup] = useState(false); 
   const navigate = useNavigate();
+  const login = sessionStorage.getItem('login') === 'true'; // Convert to boolean
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +39,7 @@ const Info = () => {
   const handleLogout = async () => {
     try {
       await axios.post("https://athletes-cars-22.onrender.com/logout");
-      
+      sessionStorage.removeItem('login'); // Clear login status
       navigate('/');
     } catch (err) {
       console.log(err);
@@ -48,15 +50,15 @@ const Info = () => {
     <div>
       <nav className="navbar">
         <div className="auth-buttons">
-          <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link> 
-          <Link to="/login">Log In</Link>
-          <button onClick={handleLogout}>Logout</button> 
+          {!login && <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link>}
+          {!login && <Link to="/login">Log In</Link>}
+          {login && <button onClick={handleLogout}>Logout</button>}
         </div>
         <div className="logo">Top Athletes Sports Car</div>
         <div className="search">
           <input type="text" placeholder="Search..." />
         </div>
-        <Link to="/form">Add Entity</Link>
+        {login && <Link to="/form">Add Entity</Link>}
       </nav>
       <div className="info-container">
         {data.map((item, index) => (
@@ -70,8 +72,8 @@ const Info = () => {
               <p>Max speed: {item.maximumspeed} </p>
               <p>Price of car: {item.priceofcar} </p>
               <p>Company Name: {item.company}</p>
-              <Link to={`/update/${item._id}`} onClick={() => handleUpdate(item._id)}>Update</Link>
-              <button onClick={() => handleDelete(item._id)}>Delete</button>
+              {login && <Link to={`/update/${item._id}`} onClick={() => handleUpdate(item._id)}>Update</Link>}
+              {login && <button onClick={() => handleDelete(item._id)}>Delete</button>}
             </div>
           </div>
         ))}
