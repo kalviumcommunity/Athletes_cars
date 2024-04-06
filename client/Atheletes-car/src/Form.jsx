@@ -27,7 +27,7 @@ function Form() {
                 created_by: username
             };
 
-            const response = await axios.post("http://localhost:3000/post", formDataWithUsername);
+            const response = await axios.post("https://athletes-cars-22.onrender.com/post", formDataWithUsername);
            
             if (response.status === 200) {
                 navigate("/");
