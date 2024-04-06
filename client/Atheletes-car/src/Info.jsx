@@ -6,8 +6,6 @@ import Signup from './Signup';
 
 const Info = () => {
   const [data, setData] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState('');
   const [showSignup, setShowSignup] = useState(false); 
   const navigate = useNavigate();
   const login = sessionStorage.getItem('login') === 'true'; 
@@ -19,41 +17,13 @@ const Info = () => {
         setData(res.data);
       } catch (err) {
         console.log(err);
+
+        
       }
     };
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("https://athletes-cars-22.onrender.com/users");
-        setUsers(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  const handleUserChange = (event) => {
-    setSelectedUser(event.target.value);
-  };
-
-  useEffect(() => {
-    const fetchEntitiesByUser = async () => {
-      try {
-        const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchEntitiesByUser();
-  }, [selectedUser]);
 
   const handleDelete = async (id) => {
     try {
@@ -92,14 +62,6 @@ const Info = () => {
         </div>
         {login && <Link to="/form">Add Entity</Link>}
       </nav>
-      <div className="user-dropdown">
-        <select value={selectedUser} onChange={handleUserChange}>
-          <option value="">Select User</option>
-          {users.map(user => (
-            <option key={user._id} value={user._id}>{user.username}</option>
-          ))}
-        </select>
-      </div>
       <div className="info-container">
         {data.map((item, index) => (
           <div className="image-info-container" key={index}>
