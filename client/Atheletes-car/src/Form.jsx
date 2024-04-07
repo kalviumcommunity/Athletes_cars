@@ -17,14 +17,14 @@ function Form() {
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         try {
-            const username = sessionStorage.getItem('username');
+            const userId = sessionStorage.getItem('userId');
             
-            const formDataWithUsername = {
+            const formDataWithUserId = {
                 ...formData,
-                created_by: username
+                userId: userId
             };
 
-            const response = await axios.post("https://athletes-cars-22.onrender.com/post", formDataWithUsername);
+            const response = await axios.post("https://athletes-cars-22.onrender.com/post", formDataWithUserId);
            
             if (response.status === 200) {
                 navigate("/");
