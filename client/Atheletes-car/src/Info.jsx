@@ -1,4 +1,3 @@
-// Info.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,11 +15,7 @@ const Info = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = "https://athletes-cars-22.onrender.com/get";
-        if (selectedUser) {
-          url += `?userId=${selectedUser}`;
-        }
-        const res = await axios.get(url);
+        const res = await axios.get("https://athletes-cars-22.onrender.com/get");
         setData(res.data);
       } catch (err) {
         console.log(err);
@@ -28,7 +23,7 @@ const Info = () => {
     };
 
     fetchData();
-  }, [selectedUser]);
+  }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -46,6 +41,19 @@ const Info = () => {
   const handleUserChange = (event) => {
     setSelectedUser(event.target.value);
   };
+
+  useEffect(() => {
+    const fetchEntitiesByUser = async () => {
+      try {
+        const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchEntitiesByUser();
+  }, [selectedUser]);
 
   const handleDelete = async (id) => {
     try {
