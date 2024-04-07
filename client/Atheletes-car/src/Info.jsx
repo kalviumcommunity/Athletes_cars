@@ -15,7 +15,11 @@ const Info = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("https://athletes-cars-22.onrender.com/get");
+        let url = "https://athletes-cars-22.onrender.com/get";
+        if (selectedUser) {
+          url += `?userId=${selectedUser}`;
+        }
+        const res = await axios.get(url);
         setData(res.data);
       } catch (err) {
         console.log(err);
@@ -23,7 +27,7 @@ const Info = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedUser]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -41,19 +45,6 @@ const Info = () => {
   const handleUserChange = (event) => {
     setSelectedUser(event.target.value);
   };
-
-  useEffect(() => {
-    const fetchEntitiesByUser = async () => {
-      try {
-        const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchEntitiesByUser();
-  }, [selectedUser]);
 
   const handleDelete = async (id) => {
     try {
