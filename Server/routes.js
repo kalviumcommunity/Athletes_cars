@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 router.use(express.json());
 
+// Fetch all users
 router.get('/users', async (req, res) => {
     try {
         const users = await userModel.find({}, 'username');
@@ -16,6 +17,7 @@ router.get('/users', async (req, res) => {
     }
 });
 
+// Fetch cars filtered by userId
 router.get('/get', async (req, res) => {
     try {
         const { userId } = req.query;
@@ -28,6 +30,7 @@ router.get('/get', async (req, res) => {
     }
 });
 
+// Create a new car
 router.post('/post', async (req, res) => {
     try {
         const { error } = carJoiSchema.validate(req.body);
@@ -43,6 +46,7 @@ router.post('/post', async (req, res) => {
     }
 });
 
+// Update a car
 router.put('/update/:id', async (req, res) => {
     try {
         const { error } = carJoiSchema.validate(req.body);
@@ -58,6 +62,7 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
+// Delete a car
 router.delete('/delete/:id', async (req, res) => {
     try {
         await Car.findByIdAndDelete(req.params.id);
@@ -68,7 +73,8 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
-router.post('/Signup', async (req, res) => {
+// User signup
+router.post('/signup', async (req, res) => {
     try {
         const user = await userModel.create({
             username: req.body.username,
@@ -81,7 +87,8 @@ router.post('/Signup', async (req, res) => {
     }
 });
 
-router.post('/Login', async (req, res) => {
+// User login
+router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await userModel.findOne({ username, password });
@@ -97,6 +104,7 @@ router.post('/Login', async (req, res) => {
     }
 });
 
+// User logout
 router.post('/logout', (req, res) => {
     res.clearCookie('username');
     res.clearCookie('password');
@@ -104,6 +112,7 @@ router.post('/logout', (req, res) => {
     res.status(200).json({ message: 'Logout successful' });
 });
 
+// Authentication
 router.post('/auth', async (req, res) => {
     try {
         const { username, password } = req.body;

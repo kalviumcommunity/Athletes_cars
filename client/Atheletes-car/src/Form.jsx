@@ -1,7 +1,6 @@
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
-import './Form.css';
+import { useNavigate } from 'react-router-dom';
 
 function Form() {
     const navigate = useNavigate();
@@ -18,10 +17,8 @@ function Form() {
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         try {
-         
             const username = sessionStorage.getItem('username');
             
-        
             const formDataWithUsername = {
                 ...formData,
                 created_by: username
