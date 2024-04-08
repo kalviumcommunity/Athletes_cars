@@ -28,6 +28,19 @@ router.get('/get', async (req, res) => {
     }
 });
 
+router.get('/get/:id', async (req, res) => {
+    try {
+        const car = await Car.findById(req.params.id);
+        if (!car) {
+            return res.status(404).json({ error: 'Car not found' });
+        }
+        res.status(200).json(car);
+    } catch (err) {
+        console.error('error', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 router.post('/post', async (req, res) => {
     try {
         const { error } = carJoiSchema.validate(req.body);
@@ -119,5 +132,7 @@ router.post('/auth', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.post()
 
 module.exports = router;
