@@ -45,8 +45,12 @@ const Info = () => {
   useEffect(() => {
     const fetchEntitiesByUser = async () => {
       try {
-        const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
-        setData(res.data);
+        if (selectedUser) {
+          const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
+          setData(res.data);
+        } else {
+          setData([]);
+        }
       } catch (err) {
         console.log(err);
       }
