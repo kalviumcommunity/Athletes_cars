@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
@@ -9,6 +9,10 @@ const Info = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [showSignup, setShowSignup] = useState(false);
+
+  const [filteredData,setFilteredData] = useState([])
+  const [showdata,setShowData] = useState(true)
+
   const navigate = useNavigate();
   const login = sessionStorage.getItem('login') === 'true';
 
@@ -17,6 +21,8 @@ const Info = () => {
       try {
         const res = await axios.get("https://athletes-cars-22.onrender.com/get");
         setData(res.data);
+        setFilteredData(res.data)
+        console.log("FD",filteredData)
       } catch (err) {
         console.log(err);
       }
@@ -38,16 +44,16 @@ const Info = () => {
     fetchUsers();
   }, []);
 
-  const handleUserChange = async (event) => {
-    const userId = event.target.value;
-    setSelectedUser(userId);
-    try {
-      const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${userId}`);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleUserChange = async (event) => {
+  //   const userId = event.target.value;
+  //   setSelectedUser(userId);
+  //   try {
+  //     const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${userId}`);
+  //     setData(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const handleDelete = async (id) => {
     try {
@@ -72,6 +78,28 @@ const Info = () => {
     }
   };
 
+  const handleSelectedChange = (event) => {
+    const selectedUser = event.target.value
+        setShowData(false)
+
+        if (selectedUser == "All") {
+            setFilteredData(data)
+        }
+        else {
+            const few = data.filter(el => {
+                if (el.created_by == selectedUser) {
+                    return el
+                }
+            })
+
+            setFilteredData(few)
+        }
+  }
+
+  useEffect(()=>{
+    console.log("ue",filteredData)
+  },[filteredData])
+
   return (
     <div>
       <nav className="navbar">
@@ -87,15 +115,31 @@ const Info = () => {
         {login && <Link to="/form">Add Entity</Link>}
       </nav>
       <div className="user-dropdown">
-        <select value={selectedUser} onChange={handleUserChange}>
+        <select value={selectedUser} onChange={(event) => handleSelectedChange(event)}>
           <option value="">Select User</option>
           {users.map(user => (
-            <option key={user._id} value={user._id}>{user.username}</option>
+            <option key={user._id} value={user.username}>{user.username}</option>
           ))}
         </select>
       </div>
       <div className="info-container">
-        {data.map((item, index) => (
+        {showdata && data.map((item, index) => (
+          <div className="image-info-container" key={index}>
+            <div className="image-section">
+              <img src={item.imagelink} alt={item.name} style={{ width: '100%', height: 'auto' }} />
+            </div>
+            <div className="info-section">
+              <p>Name: {item.name}</p>
+              <p>Sport: {item.sport}</p>
+              <p>Max speed: {item.maximumspeed} </p>
+              <p>Price of car: {item.priceofcar} </p>
+              <p>Company Name: {item.company}</p>
+              {login && <Link to={`/update/${item._id}`} onClick={() => handleUpdate(item._id)}>Update</Link>}
+              {login && <button onClick={() => handleDelete(item._id)}>Delete</button>}
+            </div>
+          </div>
+        ))}
+        {!showdata && filteredData.map((item, index) => (
           <div className="image-info-container" key={index}>
             <div className="image-section">
               <img src={item.imagelink} alt={item.name} style={{ width: '100%', height: 'auto' }} />
