@@ -23,7 +23,7 @@ const Info = () => {
     };
 
     fetchData();
-  }, [showSignup]); // Update data when form submitted
+  }, []); 
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -38,27 +38,16 @@ const Info = () => {
     fetchUsers();
   }, []);
 
-  const handleUserChange = (event) => {
-    setSelectedUser(event.target.value);
+  const handleUserChange = async (event) => {
+    const userId = event.target.value;
+    setSelectedUser(userId);
+    try {
+      const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${userId}`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  useEffect(() => {
-    const fetchEntitiesByUser = async () => {
-      try {
-        if (selectedUser) {
-          const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${selectedUser}`);
-          setData(res.data);
-        } else {
-          setData([]);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    
-
-    fetchEntitiesByUser();
-  }, [selectedUser]);
 
   const handleDelete = async (id) => {
     try {
