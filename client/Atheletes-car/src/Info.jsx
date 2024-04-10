@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
@@ -8,10 +8,11 @@ const Info = () => {
   const [data, setData] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [showSignup, setShowSignup] = useState(false);
 
-  const [filteredData,setFilteredData] = useState([])
-  const [showdata,setShowData] = useState(true)
+  const [filteredData, setFilteredData] = useState([]);
+  const [showdata, setShowData] = useState(true);
 
   const navigate = useNavigate();
   const login = sessionStorage.getItem('login') === 'true';
@@ -21,15 +22,14 @@ const Info = () => {
       try {
         const res = await axios.get("https://athletes-cars-22.onrender.com/get");
         setData(res.data);
-        setFilteredData(res.data)
-        console.log("FD",filteredData)
+        setFilteredData(res.data);
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -44,21 +44,11 @@ const Info = () => {
     fetchUsers();
   }, []);
 
-  // const handleUserChange = async (event) => {
-  //   const userId = event.target.value;
-  //   setSelectedUser(userId);
-  //   try {
-  //     const res = await axios.get(`https://athletes-cars-22.onrender.com/get?userId=${userId}`);
-  //     setData(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://athletes-cars-22.onrender.com/delete/${id}`);
       setData(data.filter(item => item._id !== id));
+      setFilteredData(filteredData.filter(item => item._id !== id));
     } catch (err) {
       console.log(err);
     }
@@ -72,33 +62,25 @@ const Info = () => {
     try {
       await axios.post("https://athletes-cars-22.onrender.com/logout");
       sessionStorage.removeItem('login');
-      navigate('/');
+      setIsLoggedIn(false);
+
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleSelectedChange = (event) => {
-    const selectedUser = event.target.value
-        setShowData(false)
+    const selectedUser = event.target.value;
+    setSelectedUser(selectedUser);
+    setShowData(false);
 
-        if (selectedUser == "All") {
-            setFilteredData(data)
-        }
-        else {
-            const few = data.filter(el => {
-                if (el.created_by == selectedUser) {
-                    return el
-                }
-            })
-
-            setFilteredData(few)
-        }
-  }
-
-  useEffect(()=>{
-    console.log("ue",filteredData)
-  },[filteredData])
+    if (selectedUser === "All") {
+      setFilteredData(data);
+    } else {
+      const few = data.filter(el => el.created_by === selectedUser);
+      setFilteredData(few);
+    }
+  };
 
   return (
     <div>
@@ -106,16 +88,19 @@ const Info = () => {
         <div className="auth-buttons">
           {!login && <Link to="/signup" onClick={() => setShowSignup(true)}>Sign Up</Link>}
           {!login && <Link to="/login">Log In</Link>}
-          {login && <button onClick={handleLogout}>Logout</button>}
+          {login && <Link to="/"><button className='login' onClick={() => {
+                sessionStorage.removeItem('login');
+                setIsLoggedIn(false);
+              }}>Logout</button></Link>}
         </div>
         <div className="logo">Top Athletes Sports Car</div>
-        <div className="search">
+        <div className="search">  
           <input type="text" placeholder="Search..." />
         </div>
         {login && <Link to="/form">Add Entity</Link>}
       </nav>
       <div className="user-dropdown">
-        <select value={selectedUser} onChange={(event) => handleSelectedChange(event)}>
+        <select value={selectedUser} onChange={handleSelectedChange}>
           <option value="">Select User</option>
           {users.map(user => (
             <option key={user._id} value={user.username}>{user.username}</option>

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +27,6 @@ function Form() {
             const response = await axios.post("https://athletes-cars-22.onrender.com/post", formDataWithUsername);
            
             if (response.status === 200) {
-               
                 navigate("/info"); 
             } else {
                 console.error("Unexpected response status:", response.status);
