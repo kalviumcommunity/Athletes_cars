@@ -23,12 +23,17 @@ const carSchema = new mongoose.Schema({
         required: true  
     },
     imagelink: {
-        type: String
+        type: String,
+    
     },
+
     created_by:{
         type : String
     }
 });
+
+
+
 
 const Car = mongoose.model('sportscar-collection', carSchema);
 
@@ -38,8 +43,13 @@ const carJoiSchema = Joi.object({
     maximumspeed: Joi.string().required(),
     priceofcar: Joi.string().required(),
     company: Joi.string().required(),
-    imagelink: Joi.string(),
+    imagelink: Joi.string().required(),
     created_by : Joi.string()
 });
+
+
+
+
+
 
 module.exports = {Car, carJoiSchema};

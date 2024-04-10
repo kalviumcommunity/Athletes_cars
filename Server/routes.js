@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Car, carJoiSchema } = require('./schema');
+const { userModel } = require("./userschema");
+const jwt = require('jsonwebtoken');
 
 router.use(express.json());
 
@@ -75,6 +77,55 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(204).send();
     } catch (err) {
         console.error('Error deleting car:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.post('/signup', async (req, res) => {
+    try {
+        const user = await userModel.create({
+            username: req.body.username,
+            password: req.body.password
+        });
+        res.status(200).json(user);
+    } catch (err) {
+        console.error('Error creating new user:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userModel.findOne({ username, password });
+        
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username / password' });
+        }
+
+        res.status(200).json({ user });
+    } catch (err) {
+        console.error('Error logging in:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.post('/logout', (req, res) => {
+   
+});
+
+router.post('/auth', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = {
+            username: username,
+            password: password
+        };
+        const TOKEN = jwt.sign(user, process.env.TOKEN);
+        res.cookie('token', TOKEN, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+        res.json({ accessToken: TOKEN });
+    } catch (err) {
+        console.error('Error generating authentication token:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
