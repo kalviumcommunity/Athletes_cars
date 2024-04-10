@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css';
@@ -7,8 +7,8 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [, setLoginMessage] = useState(' ');
-    const [loginStatus, setLoginStatus] = useState(false); // Initialize loginStatus state
+    const [loginMessage, setLoginMessage] = useState('');
+    const [loginStatus, setLoginStatus] = useState(false); 
 
     const navigate = useNavigate();
 
@@ -22,23 +22,22 @@ const Login = () => {
             setLoginMessage("Password should be more than 5 characters");
             return;
         }
-        axios.post(`https://athletes-cars-22.onrender.com/Login`, { username, password })
-            .then(res => {
-                if (res.status === 201) {
-                    console.log("ALERT");
-                    alert("invalid credentials");
-                }
-                else if (res.status === 200) {
-                    console.log("WORKING");
-                    navigate('/info');
-                    sessionStorage.setItem('username', username);
-                    setLoginStatus(true); // Set loginStatus to true
-                    sessionStorage.setItem('login', true); // Store loginStatus in sessionStorage
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        try {
+            const res = await axios.post(`https://athletes-cars-22.onrender.com/Login`, { username, password });
+            if (res.status === 200) {
+                console.log("WORKING");
+                navigate('/info');
+                sessionStorage.setItem('username', username);
+                setLoginStatus(true);
+                sessionStorage.setItem('login', true); 
+            } else {
+                console.log("ALERT");
+                setLoginMessage("Invalid credentials");
+            }
+        } catch (err) {
+            console.log(err);
+            setLoginMessage("Error occurred while logging in");
+        }
     };
 
     return (
@@ -71,6 +70,7 @@ const Login = () => {
                             </span>
                         </div>
                     </div>
+                    {loginMessage && <p className="login-message">{loginMessage}</p>}
                     <div className="form-group button-group">
                         <button type="submit">Login</button>
                     </div>
