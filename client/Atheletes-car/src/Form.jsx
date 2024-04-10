@@ -27,6 +27,7 @@ function Form() {
             const response = await axios.post("https://athletes-cars-22.onrender.com/post", formDataWithUsername);
            
             if (response.status === 200) {
+                // Fetch updated data after successful submission
                 navigate("/");
             } else {
                 console.error("Unexpected response status:", response.status);
