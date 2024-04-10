@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './info.css';
-import Signup from './Signup'; 
+import Signup from './Signup';
 
 const Info = () => {
   const [data, setData] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
-  const [showSignup, setShowSignup] = useState(false); 
+  const [showSignup, setShowSignup] = useState(false);
   const navigate = useNavigate();
-  const login = sessionStorage.getItem('login') === 'true'; 
+  const login = sessionStorage.getItem('login') === 'true';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +23,7 @@ const Info = () => {
     };
 
     fetchData();
-  }, []);
+  }, [showSignup]); // Update data when form submitted
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -55,6 +55,7 @@ const Info = () => {
         console.log(err);
       }
     };
+    
 
     fetchEntitiesByUser();
   }, [selectedUser]);
@@ -69,13 +70,13 @@ const Info = () => {
   };
 
   const handleUpdate = (id) => {
-    navigate(`/update/${id}`);  
+    navigate(`/update/${id}`);
   };
 
   const handleLogout = async () => {
     try {
       await axios.post("https://athletes-cars-22.onrender.com/logout");
-      sessionStorage.removeItem('login'); 
+      sessionStorage.removeItem('login');
       navigate('/');
     } catch (err) {
       console.log(err);
@@ -122,7 +123,7 @@ const Info = () => {
           </div>
         ))}
       </div>
-      {showSignup && <Signup />} 
+      {showSignup && <Signup />}
     </div>
   );
 };
